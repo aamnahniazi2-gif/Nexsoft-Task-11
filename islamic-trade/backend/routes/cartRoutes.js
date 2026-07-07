@@ -1,0 +1,27 @@
+const express = require('express');
+const router = express.Router();
+const {
+    getCart,
+    addToCart,
+    updateCartItem,
+    removeFromCart,
+    clearCart,
+    applyCoupon,
+    removeCoupon,
+    saveCartNotes
+} = require('../controllers/cartController');
+const { protect } = require('../middleware/auth');
+
+// All cart routes require authentication
+router.use(protect);
+
+router.get('/', getCart);
+router.post('/add', addToCart);
+router.put('/update/:productId', updateCartItem);
+router.delete('/remove/:productId', removeFromCart);
+router.delete('/clear', clearCart);
+router.post('/coupon', applyCoupon);
+router.delete('/coupon', removeCoupon);
+router.put('/notes', saveCartNotes);
+
+module.exports = router;
